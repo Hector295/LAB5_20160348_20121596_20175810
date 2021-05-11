@@ -36,8 +36,9 @@ public class JuegosController {
     }
 
     @GetMapping(value = {"", "/", "/vista"})
-    public String vistaJuegos ( ... ){
+    public String vistaJuegos ( Model model ){
                /** Completar */
+               return "juegos/vista";
     }
 
     @GetMapping("/nuevo")
