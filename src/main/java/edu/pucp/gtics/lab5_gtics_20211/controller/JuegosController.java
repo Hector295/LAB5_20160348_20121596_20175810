@@ -21,10 +21,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-
+@RequestMapping("/juegos")
 public class JuegosController {
 
+    @Autowired
+    PlataformasRepository plataformasRepository;
 
+    @Autowired
+    JuegosRepository juegosRepository;
 
     @GetMapping( ... )
     public String listaJuegos ( ... ){
@@ -37,20 +41,40 @@ public class JuegosController {
                return "juegos/vista";
     }
 
-    @GetMapping( ... )
+    @GetMapping("/nuevo")
     public String nuevoJuegos(Model model, @ModelAttribute("juego") Juegos juego){
-               /** Completar */
+        model.addAttribute("plataformasList",plataformasRepository.findAll());
+        return "juegos/editarFrm";
     }
 
-    @GetMapping( ... )
-    public String editarJuegos(@RequestParam("id") int id, Model model){
-                /** Completar */
+    @GetMapping("/editar" )
+    public String editarJuegos(@RequestParam("id") int id, Model model,@ModelAttribute("juego") Juegos juegos){
+        Optional<Juegos> juegosOptional= juegosRepository.findById(id);
+        if (juegosOptional.isPresent()) {
+            juegos=juegosOptional.get();
+            model.addAttribute("juego", juegos);
+            model.addAttribute("plataformasList",plataformasRepository.findAll());
+            return "juegos/editarFrm";
+        } else {
+            return "redirect:/juegos";
+        }
 
     }
 
-    @PostMapping( ... )
+    @PostMapping("/guardar")
     public String guardarJuegos(Model model, RedirectAttributes attr, @ModelAttribute("juego") @Valid Juegos juego, BindingResult bindingResult ){
-                /** Completar */
+        if(bindingResult.hasErrors()){
+            model.addAttribute("plataformasList",plataformasRepository.findAll());
+            return "juegos/editarFrm";
+        }else {
+            if (juego.getIdjuego() == 0) {
+                attr.addFlashAttribute("msg", "Juego creado exitosamente");
+            } else {
+                attr.addFlashAttribute("msg", "Juego actualizado exitosamente");
+            }
+            juegosRepository.save(juego);
+            return "redirect:/product";
+        }
 
     }
 
