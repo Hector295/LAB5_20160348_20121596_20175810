@@ -11,22 +11,13 @@
                 <h1>Lista de Juegos Comprados</h1>
             </div>
             <div class="container-fluid">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 card-app">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 card-app" th:each="juego, info : ${listaJuegos}">
                     <div class="col mb-4">
                         <div class="card" >
-                            <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRec6M4WbTPy03DFswDEaaYYMB46DU7IJ962Q&amp;usqp=CAU" alt="Card image cap">
+                            <img class="card-img-top" th:src="${juego.getImage()}" alt="Card image cap">
                             <div class="card-body">
-                                <h5 class="card-title">FIFA 21</h5>
-                                <p class="card-text">El juego es la 28.ª entrega de la serie de videojuegos de FIFA. Es el primer videojuego de la serie FIFA para PlayStation 5 y Xbox Series X|S.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-4">
-                        <div class="card" >
-                            <img class="card-img-top" src="https://media.vandal.net/m/15505/20121217145531_1.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">Resident Evil 6</h5>
-                                <p class="card-text">Es un videojuego de acción en tercera persona del género dramatic horror publicado el 2 de octubre de 2012 por la empresa Capcom.</p>
+                                <h5 class="card-title" th:text="${juego.getNombre()}"></h5>
+                                <p class="card-text" th:text="${juego.getDescripcion()}"></p>
                             </div>
                         </div>
                     </div>

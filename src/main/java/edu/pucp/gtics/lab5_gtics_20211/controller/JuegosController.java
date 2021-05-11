@@ -30,14 +30,23 @@ public class JuegosController {
     @Autowired
     JuegosRepository juegosRepository;
 
-    @GetMapping( ... )
-    public String listaJuegos ( ... ){
-               /** Completar */
+    User user;
+
+    @GetMapping("/lista")
+    public String listaJuegos (@RequestParam(value = "id") int id, Model model){
+        if(user.getAutorizacion().equals("ADMIN")){
+            model.addAttribute("listaJuegos", juegosRepository.findAll(Sort.by("precio").ascending()));
+            return "juegos/lista";
+        }else if(user.getAutorizacion().equals("USER")){
+            model.addAttribute("listaJuegos", juegosRepository.obtenerJuegosPorUser(id));
+            return "juegos/comprado";
+        }
+        return "redirect:/juegos/vista";
     }
 
     @GetMapping(value = {"", "/", "/vista"})
     public String vistaJuegos ( Model model ){
-               /** Completar */
+               model.addAttribute("vistaJuegos", juegosRepository.findAll(Sort.by("nombre").descending()));
                return "juegos/vista";
     }
 
