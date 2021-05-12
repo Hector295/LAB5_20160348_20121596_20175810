@@ -17,8 +17,14 @@
                         Acceso Denegado
                     </div>
                     <form th:action="@{/processLogin}" method="post">
-                        <!--- Completar -->
-                        <!--- Completar -->
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="username" placeholder="Usuario" name="correo" required autofocus>
+                            <label for="username">Usuario</label> <!--Siempre name debe llamarse username -->
+                        </div>
+                        <div class="form-floating">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                            <label for="password">Contraseña</label> <!--Siempre name debe llamarse password -->
+                        </div>
                         <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
                     </form>
                 </div>
