@@ -30,6 +30,8 @@ public class UserController {
 
     @GetMapping("/signInRedirect")
     public String signInRedirect(Authentication auth, HttpSession session) {
+        User usuarioLogueado = userRepository.findByCorreo(auth.getName());
+        session.setAttribute("usuario", usuarioLogueado);
         return "juegos/lista";
     }
 
