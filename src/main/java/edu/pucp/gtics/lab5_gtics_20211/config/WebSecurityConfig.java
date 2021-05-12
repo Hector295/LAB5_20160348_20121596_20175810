@@ -31,8 +31,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll(); //Las demás rutas están permitidas
 
         //Para cerrar sesión.
-        http.logout();
-               
+        http.logout()
+                .logoutSuccessUrl("/");
+
     }
 
     @Autowired
